@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { BOOKS } from 'src/mocks/books.mock';
+import { CreateBookDTO } from './dto/create-book.dto';
 
 @Injectable()
 export class BooksService {
@@ -29,6 +30,13 @@ export class BooksService {
         throw new HttpException("Book not found", 400)
       }
       this.books.splice(1, index)
+      resolve(this.books)
+    })
+  }
+  // POST add new book
+  addBook(book: CreateBookDTO): Promise<any> {
+    return new Promise(resolve => {
+      this.books.push(book)
       resolve(this.books)
     })
   }
