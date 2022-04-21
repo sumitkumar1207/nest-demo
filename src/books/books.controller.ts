@@ -1,11 +1,11 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { BooksService } from './books.service';
 
 @Controller('books')
 export class BooksController {
   constructor(private bookService: BooksService) { }
 
-  //@route    GET books/
+  //@route    GET /books
   //@desc     Get all the books
   //@access   public
   @Get()
@@ -13,11 +13,20 @@ export class BooksController {
     return await this.bookService.getBooks()
   }
 
-  //@route    GET books/:bookId
+  //@route    GET /books/:bookId
   //@desc     Get the book by id
   //@access   public
   @Get(":bookId")
   async getBook(@Param("bookId") bookId) {
-    await this.bookService.getBook(bookId)
+    return await this.bookService.getBook(bookId)
+  }
+
+  //@route    DELETE /books
+  //@desc     Pass the bookId in query, that book will be removed
+  //@access   public
+  @Delete()
+  async deleteBook(@Query() query) {
+    const { bookId } = query
+    return await this.bookService.deleteBook(bookId)
   }
 }
