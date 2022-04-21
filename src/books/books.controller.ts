@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { BooksService } from './books.service';
 
 @Controller('books')
@@ -13,4 +13,11 @@ export class BooksController {
     return await this.bookService.getBooks()
   }
 
+  //@route    GET books/:bookId
+  //@desc     Get the book by id
+  //@access   public
+  @Get(":bookId")
+  async getBook(@Param("bookId") bookId) {
+    await this.bookService.getBook(bookId)
+  }
 }
