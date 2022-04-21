@@ -18,7 +18,7 @@ export class BooksController {
   //@desc     Get the book by id
   //@access   public
   @Get(":bookId")
-  async getBook(@Param("bookId") bookId) {
+  async getBook(@Param("bookId") bookId: number | string) {
     return await this.bookService.getBook(bookId)
   }
 
