@@ -13,9 +13,10 @@ export class BooksService {
     })
   }
   // GET book by id
-  getBook(bookId: number): Promise<any> {
+  getBook(bookId: number | string): Promise<any> {
     return new Promise(resolve => {
-      const book = this.books.find(book => book.id === bookId)
+      const id = Number(bookId)
+      const book = this.books.find(book => book.id === id)
       if (!book) {
         throw new HttpException("Book does not exists!", 400)
       }
@@ -23,9 +24,10 @@ export class BooksService {
     })
   }
   // Delete the book
-  deleteBook(bookId: number): Promise<any> {
+  deleteBook(bookId: number | string): Promise<any> {
     return new Promise(resolve => {
-      const index = this.books.findIndex(book => book.id === bookId)
+      const id = Number(bookId)
+      const index = this.books.findIndex(book => book.id === id)
       if (index === -1) {
         throw new HttpException("Book not found", 400)
       }
